@@ -9,10 +9,11 @@ import io.ktor.routing.*
 fun Route.adventByDay() {
     get("/advent/{day}") {
         val day = call.parameters["day"]
-        val adventSolution = adventResource[day] ?: return@get call.respondText(
-            "No advent day $day implemented!",
-            status = HttpStatusCode.NotFound
-        )
+        val adventSolution = adventResource[day]
+            ?: return@get call.respondText(
+                "No advent day $day implemented!",
+                status = HttpStatusCode.NotFound
+            )
         call.respondText(adventSolution.solve())
     }
 }
